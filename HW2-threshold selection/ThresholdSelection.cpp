@@ -1,13 +1,4 @@
-#include <opencv2\opencv.hpp>
-#include <highgui.h>
-#include <cv.h>
-#include <iostream>
-#include <string>
-#include <cmath>
-#include <math.h>
-#include <float.h>
-using namespace cv;
-using namespace std;
+#include "opencv.h"
 
 #define MAX_GRAY_VALUE 256
 #define MIN_GRAY_VALUE 0
@@ -363,7 +354,8 @@ int otsu(Mat dst){
 
 }
 
-
+//main
+/*
 int main(){
 	cout << log(2) << endl;
 
@@ -456,3 +448,4 @@ int main(){
 	cv::waitKey(0);
 	return 0;
 }
+*/
