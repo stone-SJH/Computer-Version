@@ -6,10 +6,10 @@
 #include <stdio.h>
 
 int main(){
-	int xdivs = 2;
-	int ydivs = 2;
-	int bins = 256;
-	int limit_counter = 14;
+	int xdivs = 2;//2-16 and must be divided by width
+	int ydivs = 2;//2-16 and must be divided by height
+	int bins = 256;//2-256 --number of histogram bins to use per division
+	int limit_counter = 14;//contrast limit for localised changes in contrast 
 
 	IplImage* img = cvLoadImage("D:\\pictures\\test2.png", 1);
 	IplImage* grayImg =
