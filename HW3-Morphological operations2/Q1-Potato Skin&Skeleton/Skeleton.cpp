@@ -104,7 +104,7 @@ void GetSkeleton(uchar* imagedata, int width, int height){
 	}
 	delete[]pTemp;
 }
-/*
+
 int main()
 {
 	Mat src = imread("D:\\pictures\\potato.png");
@@ -141,4 +141,4 @@ int main()
 
 	waitKey();
 
-}*/
+}
