@@ -1,0 +1,112 @@
+\documentclass[UTF8]{article}
+
+\usepackage{amsmath}
+\usepackage{ctex}
+\usepackage{amssymb}
+
+\author{Stone}
+\title{Fourier Transform Derivation}
+
+\begin{document}
+\maketitle
+\section{傅里叶变换三角函数形式到复数形式的推导}
+
+\leftline {傅里叶变换三角函数形式原始公式为：}
+\begin{displaymath}
+  f(x) = \frac{a_{0}}{2} +
+  \sum_{1}^{\infty}[a_{n}*cos(\frac{2\pi xt}{T}) +
+  b_{n}*sin(\frac{2\pi xt}{T})]
+\end{displaymath}
+记:$
+\omega = \frac{2\pi}{T}
+$:
+\begin{displaymath}
+  f(x) = \frac{a_{0}}{2} +
+  \sum_{1}^{\infty}[a_{n}*cos(\omega xt) +
+  b_{n}*sin(\omega xt)]\qquad \textcircled{1}
+\end{displaymath}
+对\textcircled{1}式两边进行积分得：
+\begin{displaymath}
+  a_{0} = \frac{2}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}f(t)dt \qquad \textcircled{2}
+\end{displaymath}
+对\textcircled{1}式两边同乘$cos(\omega xt)$后积分得：
+\begin{displaymath}
+  a_{n} = \frac{2}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}f(t)cos(\omega xt)dt \qquad \textcircled{3}
+\end{displaymath}
+同理，再对\textcircled{1}式两边同乘$sin(\omega xt)$后积分得：
+\begin{displaymath}
+  b_{n} = \frac{2}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}f(t)sin(\omega xt)dt \qquad \textcircled{4}
+\end{displaymath}
+由\textcircled{3}及\textcircled{4}两式形式可以得出：
+\\ \begin{center}
+           \textbf{$a_{n}$为偶函数，$b_{n}$为奇函数。\qquad}\textcircled{5}
+         \end{center}
+由欧拉公式 $e^{j\theta} = cos\theta + j*sin\theta$及$ e^{-j\theta} = cos\theta - j*sin\theta$知:
+$$ \left\{
+\begin{aligned}
+cos(\omega xt) &= \frac{1}{2}(e^{j\omega xt} + e^{j\omega xt}) \\
+sin(\omega xt) &= \frac{1}{2j}(e^{j\omega xt} - e^{-j\omega xt})
+\end{aligned} \qquad \textcircled{6}
+\right.
+$$
+将\textcircled{6}式代入\textcircled{1}式中，变形为：
+\begin{displaymath}
+  \begin{aligned}
+  f(t) &= \frac{a_{0}}{2} + \sum_{1}^{\infty}[
+  \frac{a_{n}}{2}(e^{j\omega xt} + e^{-j\omega xt}) +
+  \frac{b_{n}}{2j}(e^{j\omega xt} + e^{-j\omega xt})]
+  \\&= \frac{a_{0}}{2} + \sum_{1}^{\infty}[
+  \frac{a_{n}-j b_{n}}{2}e^{j\omega xt}+
+  \frac{a_{n}+j b_{n}}{2}e^{-j\omega xt}]
+  \end{aligned}  
+\end{displaymath}
+令$F(\omega x) = \frac{a_{n}-j b_{n}}{2},\qquad F(0) = \frac{a_{0}}{2}$
+\\ 
+\\ 由\textcircled{5}式可知 $F(-\omega x) = \frac{a_{n}-j b_{n}}{2}$
+\\ 
+\\ 则 \begin{center}
+           $f(t) = \sum_{-\infty}^{\infty}F(\omega x) e^{j\omega xt}\qquad$ \textcircled{7}
+         \end{center}
+ 另结合\textcircled{3}式和\textcircled{4}式有：
+\begin{displaymath}
+  \begin{aligned}
+  F(\omega x) &= \frac{a_{n} - j b_{n}}{2}
+  \\ &= \frac{1}{2} * \frac{2}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}}
+  [f(t)cos(\omega xt) - j f(t)sin(\omega xt)]dt
+  \\ &= \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}}
+  f(t)[cos(\omega xt) - jsin(\omega xt)]dt
+  \\ &= \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}}
+  f(t)e^{-j\omega xt}dt \qquad \textcircled{8}
+  \end{aligned}
+\end{displaymath}
+ 将\textcircled{8}式两边同时乘T有：
+ \begin{displaymath}
+   TF(\omega x) = \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)e^{-j\omega xt}dt
+ \end{displaymath}
+ 又由 $T = \frac{2\pi}{\omega} $可知
+ \\
+ \\ 当$t \to +\infty$时，$\omega = \frac{2\pi}{T} \to 0$,
+ \\
+ \\ 那么有：
+ \begin{displaymath}
+   \frac{2\pi}{\omega}F(\omega x) = \int_{-\infty}^{+\infty} f(t)e^{-j\omega t} dt
+ \end{displaymath}
+ 令 $F(\theta) = \int_{-\infty}^{+\infty} f(t)e^{-j\omega t}dt = \frac{2\pi}{\omega}F(\omega x) \qquad \textcircled{9}$
+ \\
+ \\ 则$f(t) =  \int_{-\infty}^{+\infty}\frac{F(\omega x)}{\omega} e^{j\omega xt}\omega \qquad \textcircled{10} $
+ \\
+ \\ 取$\theta \to d\omega \qquad \textcircled{11}$
+ \\
+ \\ 结合\textcircled{7} \textcircled{9} \textcircled{10} \textcircled{11}四式，得：
+ \begin{displaymath}
+  \begin{aligned}
+  f(t) &= \int_{-\infty}^{+\infty} \frac{F(\theta)}{2\pi} e^{j\theta t}d\theta
+  \\ &= \frac{1}{2\pi}\int_{-\infty}^{+\infty} F(\theta) e^{j\theta t} d\theta \qquad \textcircled{12}
+  \end{aligned}
+\end{displaymath}
+取 $ u = \frac{\theta}{2\pi}$,则\textcircled{12}式可转化为
+\begin{displaymath}
+  f(t) = \int_{-\infty}^{+\infty} F(u)e^{j2\pi ut}du \qquad \textcircled{13}
+\end{displaymath}
+\textcircled{13}式即为傅里叶变换的复数形式，推导完成。
+\end{document}  
