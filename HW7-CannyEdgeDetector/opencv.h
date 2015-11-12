@@ -1,3 +1,4 @@
+/*stone's opencv header*/
 #ifndef OPENCVH
 #define OPENCVH
 

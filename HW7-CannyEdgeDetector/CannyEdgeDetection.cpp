@@ -1,5 +1,9 @@
 #include"opencv.h"
 
+//Ë«ãÐÖµ 
+#define UP 90
+#define LOW 45
+
 void calSlope(Mat src, Mat& direction, Mat& magnitude){
 	Mat magX = Mat(src.rows, src.cols, CV_32F);
 	Mat magY = Mat(src.rows, src.cols, CV_32F);
@@ -15,6 +19,7 @@ void calSlope(Mat src, Mat& direction, Mat& magnitude){
 	multiply(magY, magY, mag2Y);
 	sqrt(mag2X + mag2Y, magnitude);
 }
+
 void nonMaximumSuppression(Mat &magnitudeImage, Mat &directionImage) {
 	Mat checkImage = Mat(magnitudeImage.rows, magnitudeImage.cols, CV_8U);
 
@@ -67,14 +72,14 @@ void nonMaximumSuppression(Mat &magnitudeImage, Mat &directionImage) {
 }
 
 
-void followEdges(int x, int y, Mat magnitude, int up, int low, Mat &edges) {
+void findEdges(int x, int y, Mat magnitude, int up, int low, Mat &edges) {
 	edges.at<float>(x, y) = 255;
 
 	for (int i = -1; i < 2; i++) {
 		for (int j = -1; j < 2; j++) {
 			if ((i != 0) && (j != 0) && (x + i >= 0) && (y + j >= 0) && (x + i < magnitude.rows) && (y + j < magnitude.cols)){
-				if ((magnitude.at<float>(x + i, y + j) > up) && (edges.at<float>(x + i, y + j) != 255)) {
-					followEdges(x + i, y + j, magnitude, up, low, edges);
+				if ((magnitude.at<float>(x + i, y + j) > low) && (edges.at<float>(x + i, y + j) != 255)) {
+					findEdges(x + i, y + j, magnitude, up, low, edges);
 				}
 			}
 		}
@@ -86,11 +91,10 @@ void hysteresis(Mat magnitude, int up, int low, Mat& edgesImage) {
 	int height = magnitude.cols;
 
 	edgesImage = Mat(magnitude.rows, magnitude.cols, magnitude.type());
-
 	for (int x = 0; x < width; x++) {
 		for (int y = 0; y < height; y++) {
 			if (magnitude.at<float>(x, y) >= up){
-				followEdges(x, y, magnitude, up, low, edgesImage);
+				findEdges(x, y, magnitude, up, low, edgesImage);
 			}
 		}
 	}
@@ -116,11 +120,10 @@ void cannyEdgeDetection(Mat &src, Mat &edgesImage, int upperThresh, int lowerThr
 int main(){
 	Mat src = imread("D:\\pictures\\test2.png", 0);
 	imshow("origin", src);
-	int up = 85;
-	int low = 30;
+
 
 	Mat dst;
-	cannyEdgeDetection(src, dst, up, low);
+	cannyEdgeDetection(src, dst, UP, LOW);
 
 	
 	imshow("edge", dst);
