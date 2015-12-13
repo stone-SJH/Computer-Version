@@ -1,0 +1,43 @@
+\documentclass[UTF8]{article}
+
+\usepackage{amsmath}
+\usepackage{ctex}
+\usepackage{amssymb}
+
+\author{Stone}
+\title{Wavelet Transform}
+
+\begin{document}
+\maketitle
+\section{小波变换的基本原理}
+小波变换是把某一类被称为基本小波(mother wavelet)的函数作位移$\tau$后，在不同尺度$\alpha$下，与信号X(t)作内积。
+\newline 即:
+\newline
+\begin{displaymath}
+  WT_{x}(\alpha, \tau) = \frac{1}{\sqrt{\alpha}} \int_{-\infty}^{+\infty} x(t) \varphi^{*} (\frac{t - \tau}{\alpha}) dt
+\end{displaymath}
+\newline
+其中，$\alpha$为尺度因子，必定为正值，其作用为对基本小波函数作 \textbf{伸缩}
+\\ $\tau$为位移因子，其值可正可负，作用为对基本小波函数作\textbf{平移}
+\\ 在不同尺度下，小波的持续时间随值的增大而加宽，幅度与$\sqrt{\alpha}$成反比而减少，但波的形状保持不变。
+\newline
+\\ 与傅里叶变换相比较，傅里叶变换是将待分析信号分解为连续的正弦波或余弦波，而小波变换则是将待分析信号分解为不同尺度和位移的小波。
+\section{小波变换相对傅里叶变换的优势}
+傅里叶变换作为线性变换，其对于平稳信号的分析是非常有效的。但是由于sin(x)/cos(x)函数无论在时域或是频域均是周期函数，因此傅里叶变换就决定了不能同时在时域和频域获得良好的局部特征。
+\newline
+\\而小波变换则在这一方面表现更为优秀——由于基本小波通过一系列伸缩和平移可以构成一个小波簇，通过伸缩平移运算对信号(函数)逐步进行多尺度细化，最终达到高频处时间细分，低频处频率细分，能自动适应时频信号分析的要求，从而可聚焦到信号的任意细节，解决了Fourier变换的困难问题。
+\newline
+\\除此之外，不同小波变换还有其他对于傅里叶变换的优势：
+\\以Haar小波为例，Haar小波是一组互相正交归一的函数集，即在[0,1]区间内的矩形波：
+$$ \psi(t) =\left\{
+\begin{aligned}
+1 , 0 \leq t \leq \frac{1}{2}\\
+-1 , \frac{1}{2} \leq t \leq 1
+\end{aligned}
+\right.
+$$
+\begin{displaymath}
+  \psi(t) = j\frac{4}{\omega}sin^{2}(\frac{\omega}{4})e^{-j\frac{\omega}{2}}
+\end{displaymath}
+\newline Haar小波相对于傅里叶变换，一是具有运算简便的优势，二是$\psi(t)$不仅与$\psi(2^{j}t)$相交，而且也与自己的整数位移相交，虽然因为在时域上不连续而作为基本小波的性能不突出，但是仍然能有效聚焦到频域信号的各种细节。
+\end{document}
